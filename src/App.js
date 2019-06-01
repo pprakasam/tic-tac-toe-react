@@ -1,62 +1,46 @@
 import React, { Component } from 'react'
 import './App.scss'
-import { Route } from 'react-router-dom'
-
-import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
-import Header from './header/Header'
-import SignUp from './auth/components/SignUp'
-import SignIn from './auth/components/SignIn'
-import SignOut from './auth/components/SignOut'
-import ChangePassword from './auth/components/ChangePassword'
-
-import Alert from 'react-bootstrap/Alert'
 
 class App extends Component {
   constructor () {
     super()
-
     this.state = {
-      user: null,
-      alerts: []
+      turn: 'O',
+      board: Array(9).fill('')
+    }
+  }
+  handleClick = (event) => {
+    const boardCopy = this.state.board.slice()
+    if (!boardCopy[event.target.dataset.square]) {
+      boardCopy[event.target.dataset.square] = this.state.turn
+      event.target.innerText = this.state.turn
+      console.log(this.state.turn)
+      this.setState({
+        board: boardCopy,
+        turn: this.state.turn === 'X' ? 'O' : 'X'
+      })
     }
   }
 
-  setUser = user => this.setState({ user })
-
-  clearUser = () => this.setState({ user: null })
-
-  alert = (message, type) => {
-    this.setState({ alerts: [...this.state.alerts, { message, type }] })
-  }
-
   render () {
-    const { alerts, user } = this.state
-
+    console.log(this.state.board)
     return (
-      <React.Fragment>
-        <Header user={user} />
-        {alerts.map((alert, index) => (
-          <Alert key={index} dismissible variant={alert.type}>
-            <Alert.Heading>
-              {alert.message}
-            </Alert.Heading>
-          </Alert>
-        ))}
-        <main className="container">
-          <Route path='/sign-up' render={() => (
-            <SignUp alert={this.alert} setUser={this.setUser} />
-          )} />
-          <Route path='/sign-in' render={() => (
-            <SignIn alert={this.alert} setUser={this.setUser} />
-          )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword alert={this.alert} user={user} />
-          )} />
-        </main>
-      </React.Fragment>
+      <div className="game">
+        <div className="head">
+          <h1>TIC TAC TOE</h1>
+        </div>
+        <div className="board" onClick={this.handleClick}>
+          <div className="square" data-square="0"></div>
+          <div className="square" data-square="1"></div>
+          <div className="square" data-square="2"></div>
+          <div className="square" data-square="3"></div>
+          <div className="square" data-square="4"></div>
+          <div className="square" data-square="5"></div>
+          <div className="square" data-square="6"></div>
+          <div className="square" data-square="7"></div>
+          <div className="square" data-square="8"></div>
+        </div>
+      </div>
     )
   }
 }

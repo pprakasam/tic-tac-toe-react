@@ -1,48 +1,23 @@
-$success: #c7f282;
-$warning: #f1e681;
-$error: #f08181;
-$charcoal: #ccc;
-
-.flash-success,
-.flash-warning,
-.flash-error {
-  border: 1px solid $charcoal;
-  display: block;
-  left: 25%;
-  padding: 30px;
-  position: fixed;
-  text-align: center;
-  top: 15%;
-  width: 50%;
-  z-index: 1;
+.board {
+  display: flex;
+  width: 75vh;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-top: 50px;
 }
 
-.flash-success {
-  background-color: $success;
+.square {
+  width: 25vh;
+  height: 25vh;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: pink;
 }
 
-.flash-warning {
-  background-color: $warning;
-}
-
-.flash-error {
-  background-color: $error;
-}
-
-.auth-form {
+.game {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 15% auto 0;
-  max-width: 600px;
-
-  h3,
-  input {
-    margin-bottom: 5%;
-  }
-
-  button {
-    align-self: flex-end;
-    max-width: 200px;
-  }
+  align-items: center;
+  box-sizing: border-box;
 }
